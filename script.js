@@ -3,6 +3,7 @@ let songIndex = 0;
 let audioElement = new Audio('1.mp3');
 let masterPlay = document.getElementById('masterPlay');
 let myProgressBar = document.getElementById('myProgressBar');
+let gif = document.getElementById('gif');
 //audioElement.play();
 let songs= [
     {songName:"SlySkyTelecasted", filePath:'song/1.mp3', coverPath:"coverPath/1.jpg"},
@@ -26,16 +27,21 @@ masterPlay.addEventListener('click', ()=>{
         audioElement.play();
         masterPlay.classList.remove('fa-play-circle');
         masterPlay.classList.add('fa-pause-circle');
+        gif.style.opacity = 1;
     }else{
         audioElement.pause()
         masterPlay.classList.remove('fa-pause-circle');
         masterPlay.classList.add('fa-play-circle');
+        gif.style.opacity = 0;
     }
 })
 
 //event listener
-document.addEventListener('timeupdate', () =>{
+audioElement.addEventListener('timeupdate', () =>{
     console.log('timeUpdate');
     //update sseekbar
+    progress = parseInt((audioElement.currentTime/audioElement.duration)*100);
+    //console.log(progress)
+    myProgressBar.value = progress;
 });
 
