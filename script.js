@@ -13,11 +13,11 @@ let songs= [
     {songName:"Delayed Baggage - Ryan Stasik", filePath:'song/4.mp3', coverPath:"coverPath/4.jpg"},
     {songName:"Future - Anno Domini Beats", filePath:'song/5.mp3', coverPath:"coverPath/5.jpeg"},
     {songName:"Charm - Anno Domini Beats", filePath:'song/6.mp3', coverPath:"coverPath/6.jpg"},
-    {songName:"Window Shopping - Jeremy Black", filePath:'song/7.mp3', coverPath:"coverPath/7.jpeg"},
+    {songName:"Window Shopping - Jeremy Black", filePath:'song/7.mp3', coverPath:"coverPath/7.jpeg"}
 ];
 
 songItems.forEach((element, i) => {
-    console.log(element, i);
+    //console.log(element, i);
     element.getElementsByTagName('img')[0].src = songs[i].coverPath;
     element.getElementsByClassName('songName')[0].innerText = songs[i].songName;
 
@@ -43,7 +43,7 @@ masterPlay.addEventListener('click', ()=>{
 
 //event listener
 audioElement.addEventListener('timeupdate', () =>{
-    console.log('timeUpdate');
+    //console.log('timeUpdate');
     //update sseekbar
     progress = parseInt((audioElement.currentTime/audioElement.duration)*100);
     //console.log(progress)
@@ -53,4 +53,22 @@ audioElement.addEventListener('timeupdate', () =>{
 myProgressBar.addEventListener('change', () =>{
     audioElement.currentTime=myProgressBar.value * audioElement.duration/100;
 })
+ const makaAllPalys = () =>{
+    Array.from(document.getElementsByClassName('songItemsPlay')).forEach((element) => {
+        element.classList.add('fa-play-circle');
+        element.classList.remove('fa-pause-circle');
+    })
+ }
 
+//song item play 
+Array.from(document.getElementsByClassName('songItemsPlay')).forEach((element) => {
+    element.addEventListener('click', (e) => {
+        makaAllPalys();
+        console.log(e.target);
+        e.target.classList.remove('fa-play-circle');
+        e.target.classList.add('fa-pause-circle');
+        audioElement.src = 'song/3.mp3';
+        audioElement.currentTime = 0;
+        audioElement.play()
+    })
+})
